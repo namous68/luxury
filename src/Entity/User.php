@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -29,10 +30,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Candidate $candidate = null;
 
-    public function getId(): ?int
+        public function getId(): ?int
     {
         return $this->id;
     }
@@ -102,15 +103,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getName(): ?string
+    public function getCandidate(): ?Candidate
     {
-        return $this->name;
+        return $this->candidate;
     }
 
-    public function setName(string $name): static
+    public function setCandidate(Candidate $candidate): static
     {
-        $this->name = $name;
+        // set the owning side of the relation if necessary
+        if ($candidate->getUser() !== $this) {
+            $candidate->setUser($this);
+        }
+
+        $this->candidate = $candidate;
 
         return $this;
     }
+
+    
 }

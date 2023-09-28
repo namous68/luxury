@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\CandidateRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\JobOfferRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,4 +19,31 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+ 
+     #[Route("/contact", name:"contact_index")]
+     
+    public function contact_index():Response
+    {
+        return $this->render('home/contact.html.twig');
+        
+    }
+
+     
+     /**
+ * @Route("/", name="home", methods={"GET"})
+ */
+     
+    
+
+
+    
+     #[Route("/company", name:"company_index")]
+     
+    public function company_index():Response
+    {
+        return $this->render('home/company.html.twig');
+        
+    }
+
 }

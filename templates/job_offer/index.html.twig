@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}JobOffer index{% endblock %}
 
 {% block meta %}
 <meta charset="utf-8">
@@ -15,8 +15,8 @@
 {% endblock %}
 
 {% block linksAndStylesheets %}
-    <link rel="shortcut icon" href="{{ asset('assets/img/ico/fav.png') }}">
-    <link href="/assets/css/main.css" rel="stylesheet">
+ <link rel="shortcut icon" href="assets/img/ico/fav.png">
+ <link href="/assets/css/main.css" rel="stylesheet">
 
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.materialize.a1042cadda540464eafd9350bb40433a_1547807689.css" rel="stylesheet">
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.bootstrap.457005dcd8ab887d5f47791eaa1e3a26_1547807834.css" rel="stylesheet">
@@ -26,28 +26,6 @@
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.revolution-layers.4f1e49eeb6f7351bbdc1fb6e35adb6ed_1547807826.css" rel="stylesheet">
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.revolution-navigation.2f4deeb1fe1d3f7c9ab31d29a1133835_1547807825.css" rel="stylesheet">
 
-     <style>
-        .page-title-bg {
-            background-image: url(../../assets/img/bg3.jpg);
-        }
-        .log-section form .checkbox label {
-            font-size: 16px
-        }
-        .log-section form .checkbox label a {
-            color: #b6a575;
-            text-decoration: underline;
-            text-transform: inherit;
-            font-size: 16px
-        }
-        .log-section form .links a {
-            display: block;
-            text-align: center;
-            color: #b6a575;
-            text-decoration: underline;
-            text-transform: inherit;
-            font-size: 16px
-        }
-    </style>
 
 {% endblock %}
 
@@ -64,7 +42,7 @@
             $(handler);
         }
     </script>
-     <script src="http://kys.idmkr.io/cache/assets/frontend.kys.modernizr.1c9d48a1e28b608c156f4de214d48a4f_1547807685.js"></script>
+    <script src="http://kys.idmkr.io/cache/assets/frontend.kys.modernizr.1c9d48a1e28b608c156f4de214d48a4f_1547807685.js"></script>
     <script src="http://kys.idmkr.io/cache/assets/frontend.kys.jquery.5b69aaaa5f04c52e66580a2dc32d1d69_1547807685.js"></script>
     <script src="http://kys.idmkr.io/cache/assets/frontend.kys.animated-headline.88cb936096e0f8ab70515bc801d8342e_1547807687.js"></script>
     <script src="http://kys.idmkr.io/cache/assets/frontend.kys.bootstrap-tabcollapse.34017c51086f0e87aa46196565972d00_1547807688.js"></script>
@@ -100,11 +78,8 @@
 {% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-
-<div class="base">
+   
+  <div class="base">
 
     <!-- Page -->
     <div class="page">
@@ -114,12 +89,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 class="white-text">Register</h2>
-                        <span class="white-text">Welcome on board</span>
-                        <ol class="breadcrumb">
-                            <li><a href="#!">Home</a></li>
-                            <li class="active">Register</li>
-                        </ol>
+                        <h2 class="white-text">Our job offers</h2>
+                        <span class="white-text">Search and filter by job category</span>
                     </div>
                 </div>
             </div>
@@ -127,45 +98,166 @@
 
 
         <!-- Page Content-->
-        <section class="section-padding gray-bg log-section">
+        <section id="job-offers" class="section-padding gray-bg">
+				<div class="container">
+					<div class="text-center mb-40">
+						<h2 class="section-title">We have the perfect job for you</h2>
+						<p class="section-sub">just like our candidates, we offer quality, serious & reliable job offers.</p>
+					</div>
+					<div class="portfolio-container">
+
+						<ul class="portfolio-filter brand-filter text-center">
+							<li class="active waves-effect waves-light" data-group="all">All</li>
+							<li class=" waves-effect waves-light" data-group="commercial">Commercial</li>
+							<li class=" waves-effect waves-light" data-group="retail">Retail sales</li>
+							<li class=" waves-effect waves-light" data-group="creative">Creative</li>
+							<li class=" waves-effect waves-light" data-group="technology">Technology</li>
+							<li class=" waves-effect waves-light" data-group="marketing">Marketing & PR</li>
+							<li class=" waves-effect waves-light" data-group="fashion">Fashion & luxury</li>
+							<li class=" waves-effect waves-light" data-group="management">Management & HR</li>
+						</ul>
+						<div class="portfolio portfolio-with-title col-2 gutter mt-30">
+
+							<div class="portfolio-item" data-groups='["all", "commercial"]'>
+								<div class="portfolio-wrapper">
+									<div class="card job-card">
+										<div class="card-content">
+											<span class="title">
+												<span class="card-title">2nd assistant position</span>
+												<span class="ref grey-text">Ref. 1062</span>
+											</span>
+											<div class="metas mb-20">
+												<div class="meta">
+													<i class="material-icons">&#xE53E;</i>45k&euro;
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE916;</i>2018-10-01
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE55F;</i>Paris
+												</div>
+											</div>
+											<p class="truncate-text">Nulla interdum, erat et mollis eleifend, urna turpis pellentesque dolor, sed rhoncus erat est sit amet diam. Aliquam dignissim ipsum nec lorem pulvinar.</p>
+										</div>
+										<div class="card-action">
+											<a class="btn btn-md primary border waves-effect waves-dark" href="/jobs/show.html">Details</a>
+											<a class="btn btn-md primary waves-effect waves-light" href="#!">Apply</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item" data-groups='["all", "commercial"]'>
+								<div class="portfolio-wrapper">
+									<div class="card job-card">
+										<div class="card-content">
+											<span class="title">
+												<span class="card-title">2nd assistant position</span>
+												<span class="ref grey-text">Ref. 1062</span>
+											</span>
+											<div class="metas mb-20">
+												<div class="meta">
+													<i class="material-icons">&#xE53E;</i>45k&euro;
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE916;</i>2018-10-01
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE55F;</i>Paris
+												</div>
+											</div>
+											<p class="truncate-text">Nulla interdum, erat et mollis eleifend, urna turpis pellentesque dolor, sed rhoncus erat est sit amet diam. Aliquam dignissim ipsum nec lorem pulvinar.</p>
+										</div>
+										<div class="card-action">
+											<a class="btn btn-md primary border waves-effect waves-dark" href="/jobs/show.html">Details</a>
+											<a class="btn btn-md primary waves-effect waves-light" href="#!">Apply</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item" data-groups='["all", "commercial"]'>
+								<div class="portfolio-wrapper">
+									<div class="card job-card">
+										<div class="card-content">
+											<span class="title">
+												<span class="card-title">2nd assistant position</span>
+												<span class="ref grey-text">Ref. 1062</span>
+											</span>
+											<div class="metas mb-20">
+												<div class="meta">
+													<i class="material-icons">&#xE53E;</i>45k&euro;
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE916;</i>2018-10-01
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE55F;</i>Paris
+												</div>
+											</div>
+											<p class="truncate-text">Nulla interdum, erat et mollis eleifend, urna turpis pellentesque dolor, sed rhoncus erat est sit amet diam. Aliquam dignissim ipsum nec lorem pulvinar.</p>
+										</div>
+										<div class="card-action">
+											<a class="btn btn-md primary border waves-effect waves-dark" href="/jobs/show.html">Details</a>
+											<a class="btn btn-md primary waves-effect waves-light" href="#!">Apply</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="portfolio-item" data-groups='["all", "commercial"]'>
+								<div class="portfolio-wrapper">
+									<div class="card job-card">
+										<div class="card-content">
+											<span class="title">
+												<span class="card-title">2nd assistant position</span>
+												<span class="ref grey-text">Ref. 1062</span>
+											</span>
+											<div class="metas mb-20">
+												<div class="meta">
+													<i class="material-icons">&#xE53E;</i>45k&euro;
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE916;</i>2018-10-01
+												</div>
+												<div class="meta">
+													<i class="material-icons">&#xE55F;</i>Paris
+												</div>
+											</div>
+											<p class="truncate-text">Nulla interdum, erat et mollis eleifend, urna turpis pellentesque dolor, sed rhoncus erat est sit amet diam. Aliquam dignissim ipsum nec lorem pulvinar.</p>
+										</div>
+										<div class="card-action">
+											<a class="btn btn-md primary border waves-effect waves-dark" href="/jobs/show.html">Details</a>
+											<a class="btn btn-md primary waves-effect waves-light" href="#!">Apply</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="no-item"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+        <section class="cta-candidate bg-fixed bg-cover overlay dark-5 padding-top-70 padding-bottom-50">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
-                        <h3 class="text-extrabold">Create a new account</h3>
-                            {{ form_start(registrationForm) }}
+                    <div class="valign-wrapper text-center">
+                        <div class="hero-intro valign-cell">
+                            <h2 class="tt-headline clip is-full-width no-margin">
+                                <span>You are </span>
+                                <span class="tt-words-wrapper">
+                                    <b class="is-visible">Commercial</b>
+                                    <b>Creative</b>
+                                    <b>Marketing & PR</b>
+                                    <b>Technology</b>
+                                    <b>Fashion & luxury</b>
+                                    <b>Retail sales</b>
+                                </span>
+                            </h2>
+                            <h3 class="c-secondary mb-30 no-margin">Sign-up and apply for jobs now</h3>
+                            <p class="white-text section-sub">Each one of your skills is seen as precious resource to us, each one of your personality traits are considered as an added on value. Joining us is allowing our recruitment expertise and personal guidance to bring the best out in you by choosing the most suited position.</p>
 
-
-                            <input type="hidden" name="_token" value="">
-
-                            <div class="input-field">
-                                {{ form_widget(registrationForm.email) }}
-                                {{ form_label(registrationForm.email) }}
-                                {# <input type="email" name="email" id="email" value=""
-                                       required
-                                       data-parsley-trigger="change"
-                                       data-parsley-error-message="A valid email address is required.">
-                                <label for="email">Email</label> #}
-                                <span class="help-block">Type your email address.</span>
-                            </div>
-                            <div class="input-field">
-                                {{ form_widget(registrationForm.plainPassword) }}
-                                {{ form_label(registrationForm.plainPassword) }}
-                                
-                                <i class="fa fa-eye show-password"></i>
-                                <span class="help-block">Type your password.</span>
-                            </div>
-                            <div class="checkbox">
-                                {{ form_widget(registrationForm.agreeTerms) }}
-                                <label for="registration_form_agreeTerms">I have read and I accept the <a href="#!" target="_blank">Terms Of Use</a></label>
-                            </div>
-
-                            <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">Create an account</button>
-                            <div class="links">
-                                <a href="/login.html">Already have an account? Click here</a>
-                            </div>
+                            <a href="/register.html" class="btn border secondary waves-effect waves-light mt-40">Join us</a>
+                        </div>
                     </div>
-                            {{ form_end(registrationForm) }}
-
                 </div>
             </div>
         </section>
@@ -174,19 +266,13 @@
 
 </div>
 
+{% block javascriptsBasDePage %}
+<script type="text/javascript">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    onAppReady(function() {
+        $('.preload').remove();
+    });
+</script>
+{% endblock %}
 
 {% endblock %}

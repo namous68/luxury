@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidature{% endblock %}
+
+{% block body %}
+    <h1>Candidature</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ candidature.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn bn-lg grey darken-1 btn-block waves-effect waves-light btn-register" href="{{ path('candidature_index') }}">back to list</a>
+
+    <a style="margin:0" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register" href="{{ path('candidature_edit', {'id': candidature.id}) }}">edit</a>
+
+    {{ include('candidature/_delete_form.html.twig') }}
+{% endblock %}

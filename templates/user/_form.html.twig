@@ -1,0 +1,28 @@
+{{ form_start(registrationForm) }}
+    
+    <div class="input-field"> 
+        {{ form_widget(registrationForm.mail) }}
+         {{ form_label(registrationForm.mail, 'mail', {
+            'label_attr': {'class': 'mail'}
+        }) }}
+        <span class="help-block">Type your email address.</span>
+    </div>
+    <div class="input-field"> 
+        {{ form_widget(registrationForm.plainPassword) }}
+         {{ form_label(registrationForm.plainPassword, 'Password', {
+            'label_attr': {'class': 'plainPassword'}
+        }) }}
+        <i class="fa fa-eye show-password"></i>
+        <span class="help-block">Type your password.</span>
+    </div>
+    <div class="checkbox">
+       {{ form_widget(registrationForm.agreeTerms) }}
+        {{ form_label(registrationForm.agreeTerms, 'I have read and I accept the' ) }}
+            <a href="#!" target="_blank" style="15px">Terms Of Use</a>
+    </div>
+    <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">{{ button_label|default('Create an account') }}</button>
+     <div class="links">
+        <a href="{{ path ('app_login')}}">Already have an account? Click here</a>
+    </div>
+
+{{ form_end(registrationForm) }}
