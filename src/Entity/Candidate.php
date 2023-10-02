@@ -4,6 +4,8 @@ namespace App\Entity;
 use App\Entity\Experience;
 
 use App\Repository\CandidateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,8 +17,7 @@ class Candidate
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $gendre = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $FirstName = null;
@@ -32,9 +33,6 @@ class Candidate
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Nationality = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $passport = null;
 
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $passportFile = null;
@@ -54,12 +52,6 @@ class Candidate
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $PlaceOfBirth = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $EmailAdress = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $password = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $Availability = null;
 
@@ -76,21 +68,24 @@ class Candidate
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Gendre $gender = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isPassportValid = null;
+
+    #[ORM\OneToMany(mappedBy: 'candidate', targetEntity: Application::class, orphanRemoval: true)]
+    private Collection $applications;
+
+    public function __construct()
+    {
+        $this->applications = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGendre(): ?string
-    {
-        return $this->gendre;
-    }
-
-    public function setGendre(string $gendre): static
-    {
-        $this->gendre = $gendre;
-
-        return $this;
     }
 
     public function getFirstName(): ?string
@@ -149,18 +144,6 @@ class Candidate
     public function setNationality(string $Nationality): static
     {
         $this->Nationality = $Nationality;
-
-        return $this;
-    }
-
-    public function isPassport(): ?bool
-    {
-        return $this->passport;
-    }
-
-    public function setPassport(bool $passport): static
-    {
-        $this->passport = $passport;
 
         return $this;
     }
@@ -237,30 +220,6 @@ class Candidate
         return $this;
     }
 
-    public function getEmailAdress(): ?string
-    {
-        return $this->EmailAdress;
-    }
-
-    public function setEmailAdress(string $EmailAdress): static
-    {
-        $this->EmailAdress = $EmailAdress;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
     public function isAvailability(): ?bool
     {
         return $this->Availability;
@@ -305,6 +264,60 @@ class Candidate
     public function setUser(User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGender(): ?Gendre
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?Gendre $gender): static
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function isIsPassportValid(): ?bool
+    {
+        return $this->isPassportValid;
+    }
+
+    public function setIsPassportValid(?bool $isPassportValid): static
+    {
+        $this->isPassportValid = $isPassportValid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Application>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): static
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications->add($application);
+            $application->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): static
+    {
+        if ($this->applications->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getCandidate() === $this) {
+                $application->setCandidate(null);
+            }
+        }
 
         return $this;
     }

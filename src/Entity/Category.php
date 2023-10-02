@@ -18,16 +18,17 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: candidate::class)]
-    private Collection $joboffer;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: candidate::class)]
     private Collection $candidate;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Offer::class, orphanRemoval: true)]
+    private Collection $offers;
+
     public function __construct()
     {
-        $this->joboffer = new ArrayCollection();
         $this->candidate = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,36 +44,6 @@ class Category
     public function setCategory(string $category): static
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, candidate>
-     */
-    public function getJoboffer(): Collection
-    {
-        return $this->joboffer;
-    }
-
-    public function addJoboffer(candidate $joboffer): static
-    {
-        if (!$this->joboffer->contains($joboffer)) {
-            $this->joboffer->add($joboffer);
-            $joboffer->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeJoboffer(candidate $joboffer): static
-    {
-        if ($this->joboffer->removeElement($joboffer)) {
-            // set the owning side to null (unless already changed)
-            if ($joboffer->getCategory() === $this) {
-                $joboffer->setCategory(null);
-            }
-        }
 
         return $this;
     }
@@ -110,5 +81,35 @@ class Category
     public function __toString(): string
     {
         return $this->getCategory();
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): static
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers->add($offer);
+            $offer->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): static
+    {
+        if ($this->offers->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getCategory() === $this) {
+                $offer->setCategory(null);
+            }
+        }
+
+        return $this;
     }
 }

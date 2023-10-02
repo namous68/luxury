@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -14,92 +17,149 @@ class Client
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $societyName = null;
+    private ?string $companyName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nameContact = null;
+    private ?string $typeofActivity = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mailContact = null;
-
-   
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?string $contactName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $PhoneNumberContact = null;
+    private ?string $contactPosition = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $contactNumber = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $contactEmail = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $notes = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Offer::class, orphanRemoval: true)]
+    private Collection $offers;
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getCompanyName(): ?string
     {
-        $this->id = $id;
+        return $this->companyName;
+    }
+
+    public function setCompanyName(string $companyName): static
+    {
+        $this->companyName = $companyName;
 
         return $this;
     }
 
-    public function getSocietyName(): ?string
+    public function getTypeofActivity(): ?string
     {
-        return $this->societyName;
+        return $this->typeofActivity;
     }
 
-    public function setSocietyName(string $societyName): static
+    public function setTypeofActivity(string $typeofActivity): static
     {
-        $this->societyName = $societyName;
+        $this->typeofActivity = $typeofActivity;
 
         return $this;
     }
 
-    public function getNameContact(): ?string
+    public function getContactName(): ?string
     {
-        return $this->nameContact;
+        return $this->contactName;
     }
 
-    public function setNameContact(string $nameContact): static
+    public function setContactName(string $contactName): static
     {
-        $this->nameContact = $nameContact;
+        $this->contactName = $contactName;
 
         return $this;
     }
 
-    public function getMailContact(): ?string
+    public function getContactPosition(): ?string
     {
-        return $this->mailContact;
+        return $this->contactPosition;
     }
 
-    public function setMailContact(string $mailContact): static
+    public function setContactPosition(string $contactPosition): static
     {
-        $this->mailContact = $mailContact;
+        $this->contactPosition = $contactPosition;
 
         return $this;
     }
 
-
-
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getContactNumber(): ?string
     {
-        return $this->createdAt;
+        return $this->contactNumber;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setContactNumber(string $contactNumber): static
     {
-        $this->createdAt = $createdAt;
+        $this->contactNumber = $contactNumber;
 
         return $this;
     }
 
-    public function getPhoneNumberContact(): ?string
+    public function getContactEmail(): ?string
     {
-        return $this->PhoneNumberContact;
+        return $this->contactEmail;
     }
 
-    public function setPhoneNumberContact(string $PhoneNumberContact): static
+    public function setContactEmail(string $contactEmail): static
     {
-        $this->PhoneNumberContact = $PhoneNumberContact;
+        $this->contactEmail = $contactEmail;
+
+        return $this;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): static
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): static
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers->add($offer);
+            $offer->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): static
+    {
+        if ($this->offers->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getClient() === $this) {
+                $offer->setClient(null);
+            }
+        }
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Repository\CandidateRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\JobOfferRepository;
 use App\Repository\UserRepository;
+use App\Entity\JobOffer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

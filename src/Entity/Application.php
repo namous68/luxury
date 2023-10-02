@@ -16,12 +16,14 @@ class Application
     #[ORM\Column]
     private ?\DateTimeImmutable $appliedAt = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $offer = null;
+    #[ORM\ManyToOne(inversedBy: 'applications')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Candidate $candidate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $user = null;
-
+    #[ORM\ManyToOne(inversedBy: 'applications')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Offer $offer = null;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +61,18 @@ class Application
     public function setUser(string $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCandidate(): ?Candidate
+    {
+        return $this->candidate;
+    }
+
+    public function setCandidate(?Candidate $candidate): static
+    {
+        $this->candidate = $candidate;
 
         return $this;
     }
