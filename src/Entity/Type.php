@@ -18,12 +18,17 @@ class Type
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Offer::class)]
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Offer::class, orphanRemoval: true)]
     private Collection $offers;
 
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int

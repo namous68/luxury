@@ -14,21 +14,54 @@ class Image
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $imageData = null;
+    private ?string $url = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $originalName = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getImageData(): ?string
+    
+
+    /**
+     * Get the value of url
+     */ 
+    public function getUrl()
     {
-        return $this->imageData;
+        return $this->url;
     }
 
-    public function setImageData(string $imageData): static
+    /**
+     * Set the value of url
+     *
+     * @return  self
+     */ 
+    public function setUrl($url)
     {
-        $this->imageData = $imageData;
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of originalName
+     */ 
+    public function getOriginalName()
+    {
+        return $this->originalName;
+    }
+
+    /**
+     * Set the value of originalName
+     *
+     * @return  self
+     */ 
+    public function setOriginalName($originalName)
+    {
+        $this->originalName = $originalName;
 
         return $this;
     }

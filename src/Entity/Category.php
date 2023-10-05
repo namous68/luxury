@@ -25,10 +25,16 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Offer::class, orphanRemoval: true)]
     private Collection $offers;
 
+    
     public function __construct()
     {
         $this->candidate = new ArrayCollection();
         $this->offers = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->category;
     }
 
     public function getId(): ?int
@@ -78,11 +84,6 @@ class Category
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->getCategory();
-    }
-
     /**
      * @return Collection<int, Offer>
      */
@@ -112,4 +113,5 @@ class Category
 
         return $this;
     }
+    
 }

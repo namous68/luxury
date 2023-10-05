@@ -21,6 +21,29 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
+
+    public function findPreviousJob(Offer $Offer)
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.id < :currentId')
+            ->setParameter('currentId', $Offer->getId())
+            ->orderBy('o.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    } 
+
+    public function findNextJob(Offer $Offer)
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.id > :currentId')
+            ->setParameter('currentId', $Offer->getId())
+            ->orderBy('o.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Offer[] Returns an array of Offer objects
 //     */

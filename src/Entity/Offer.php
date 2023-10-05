@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
@@ -23,7 +23,7 @@ class Offer
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -32,33 +32,35 @@ class Offer
     #[ORM\Column(length: 255)]
     private ?string $jobTitle = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $jobLocation = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $closingAt = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $salary = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $type = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $jobLocation = null;
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $closingAt = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $salary = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Application::class, orphanRemoval: true)]
-    private Collection $applications;
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Candidature::class)]
+    private Collection $candidatures;
 
     public function __construct()
     {
-        $this->applications = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
+        $this->candidatures = new ArrayCollection();
     }
+    
 
     public function getId(): ?int
     {
@@ -125,38 +127,14 @@ class Offer
         return $this;
     }
 
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getJobLocation(): ?string
     {
         return $this->jobLocation;
     }
 
-    public function setJobLocation(?string $jobLocation): static
+    public function setJobLocation(string $jobLocation): static
     {
         $this->jobLocation = $jobLocation;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -166,19 +144,19 @@ class Offer
         return $this->closingAt;
     }
 
-    public function setClosingAt(?\DateTimeImmutable $closingAt): static
+    public function setClosingAt(\DateTimeImmutable $closingAt): static
     {
         $this->closingAt = $closingAt;
 
         return $this;
     }
 
-    public function getSalary(): ?int
+    public function getSalary(): ?string
     {
         return $this->salary;
     }
 
-    public function setSalary(?int $salary): static
+    public function setSalary(string $salary): static
     {
         $this->salary = $salary;
 
@@ -197,30 +175,54 @@ class Offer
         return $this;
     }
 
-    /**
-     * @return Collection<int, Application>
-     */
-    public function getApplications(): Collection
+    public function getType(): ?Type
     {
-        return $this->applications;
+        return $this->type;
     }
 
-    public function addApplication(Application $application): static
+    public function setType(?Type $type): static
     {
-        if (!$this->applications->contains($application)) {
-            $this->applications->add($application);
-            $application->setOffer($this);
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): static
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setOffer($this);
         }
 
         return $this;
     }
 
-    public function removeApplication(Application $application): static
+    public function removeCandidature(Candidature $candidature): static
     {
-        if ($this->applications->removeElement($application)) {
+        if ($this->candidatures->removeElement($candidature)) {
             // set the owning side to null (unless already changed)
-            if ($application->getOffer() === $this) {
-                $application->setOffer(null);
+            if ($candidature->getOffer() === $this) {
+                $candidature->setOffer(null);
             }
         }
 

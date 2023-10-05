@@ -21,6 +21,16 @@ class CandidatureRepository extends ServiceEntityRepository
         parent::__construct($registry, Candidature::class);
     }
 
+    public function candidatureExistsForUser($offerId, $UserId)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.offer = :offerId')
+            ->andWhere('c.User = :UserId')
+            ->setParameter('offerId', $offerId)
+            ->setParameter('UserId', $UserId)
+            ->getQuery()
+            ->getOneOrNullResult() !== null;
+    }
 //    /**
 //     * @return Candidature[] Returns an array of Candidature objects
 //     */

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use App\Entity\Offer;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -17,32 +19,41 @@ class Client
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $companyName = null;
+    private ?string $societyName = null;
 
     #[ORM\Column(length: 255)]
     private ?string $typeofActivity = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $contactName = null;
+    private ?string $nameContact = null;
 
     #[ORM\Column(length: 255)]
     private ?string $contactPosition = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $contactNumber = null;
+    private ?string $PhoneNumberContact = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $contactEmail = null;
+    private ?string $mailContact = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Offer::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Offer::class)]
     private Collection $offers;
 
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
+    }
+
+    public function __toString()
+    {
+        return $this->societyName;
     }
 
     public function getId(): ?int
@@ -50,14 +61,14 @@ class Client
         return $this->id;
     }
 
-    public function getCompanyName(): ?string
+    public function getsocietyName(): ?string
     {
-        return $this->companyName;
+        return $this->societyName;
     }
 
-    public function setCompanyName(string $companyName): static
+    public function setsocietyName(string $societyName): static
     {
-        $this->companyName = $companyName;
+        $this->societyName = $societyName;
 
         return $this;
     }
@@ -74,14 +85,14 @@ class Client
         return $this;
     }
 
-    public function getContactName(): ?string
+    public function getnameContact(): ?string
     {
-        return $this->contactName;
+        return $this->nameContact;
     }
 
-    public function setContactName(string $contactName): static
+    public function setnameContact(string $nameContact): static
     {
-        $this->contactName = $contactName;
+        $this->nameContact = $nameContact;
 
         return $this;
     }
@@ -98,26 +109,26 @@ class Client
         return $this;
     }
 
-    public function getContactNumber(): ?string
+    public function getPhoneNumberContact(): ?string
     {
-        return $this->contactNumber;
+        return $this->PhoneNumberContact;
     }
 
-    public function setContactNumber(string $contactNumber): static
+    public function setPhoneNumberContact(string $PhoneNumberContact): static
     {
-        $this->contactNumber = $contactNumber;
+        $this->PhoneNumberContact = $PhoneNumberContact;
 
         return $this;
     }
 
-    public function getContactEmail(): ?string
+    public function getmailContact(): ?string
     {
-        return $this->contactEmail;
+        return $this->mailContact;
     }
 
-    public function setContactEmail(string $contactEmail): static
+    public function setmailContact(string $mailContact): static
     {
-        $this->contactEmail = $contactEmail;
+        $this->mailContact = $mailContact;
 
         return $this;
     }
@@ -160,6 +171,26 @@ class Client
                 $offer->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of createdAt
+     */ 
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set the value of createdAt
+     *
+     * @return  self
+     */ 
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -13,19 +13,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for candidature in candidatures %}
+       
             <tr>
-                <td>{{ candidature.id }}</td>
+                <td>{{ Candidature.id }}</td>
                 <td>
-                    <a href="{{ path('candidature_show', {'id': candidature.id}) }}">show</a>
-                    <a href="{{ path('candidature_edit', {'id': candidature.id}) }}">edit</a>
+                    <a href="{{ path('candidature_show', {'id': Candidature.id}) }}">show</a>
+                    <a href="{{ path('candidature_edit', {'id': Candidature.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
+        
         </tbody>
     </table>
 

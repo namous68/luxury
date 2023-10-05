@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 use App\Entity\Experience;
+use App\Entity\Gendre;
+use App\Entity\Category;
 
 use App\Repository\CandidateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,8 +18,6 @@ class Candidate
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $FirstName = null;
@@ -34,28 +34,14 @@ class Candidate
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Nationality = null;
 
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $passportFile = null;
-
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $CurriculumVitae = null;
-
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $ProfilPicture = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $CurrentLocation = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateOfBirth = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $PlaceOfBirth = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $Availability = null;
-
-    
 
     #[ORM\ManyToOne(inversedBy: 'candidate')]
     private ?Experience $experience = null;
@@ -68,15 +54,26 @@ class Candidate
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'candidates')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Gendre $gender = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $isPassportValid = null;
 
     #[ORM\OneToMany(mappedBy: 'candidate', targetEntity: Application::class, orphanRemoval: true)]
     private Collection $applications;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $dateOfBirth = null;
+
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?Gendre $gender = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Image $passportFile = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Image $curriculumVitae = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Image $profilePicture = null;
 
     public function __construct()
     {
@@ -162,24 +159,24 @@ class Candidate
 
     public function getCurriculumVitae(): ?string
     {
-        return $this->CurriculumVitae;
+        return $this->curriculumVitae;
     }
 
     public function setCurriculumVitae(string $CurriculumVitae): static
     {
-        $this->CurriculumVitae = $CurriculumVitae;
+        $this->curriculumVitae = $CurriculumVitae;
 
         return $this;
     }
 
     public function getProfilPicture(): ?string
     {
-        return $this->ProfilPicture;
+        return $this->profilePicture;
     }
 
     public function setProfilPicture(string $ProfilPicture): static
     {
-        $this->ProfilPicture = $ProfilPicture;
+        $this->profilePicture = $ProfilPicture;
 
         return $this;
     }
@@ -192,18 +189,6 @@ class Candidate
     public function setCurrentLocation(string $CurrentLocation): static
     {
         $this->CurrentLocation = $CurrentLocation;
-
-        return $this;
-    }
-
-    public function getDateOfBirth(): ?\DateTimeInterface
-    {
-        return $this->dateOfBirth;
-    }
-
-    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): static
-    {
-        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }
@@ -268,14 +253,14 @@ class Candidate
         return $this;
     }
 
-    public function getGender(): ?Gendre
+    public function getGendre(): ?Gendre
     {
         return $this->gender;
     }
 
-    public function setGender(?Gendre $gender): static
+    public function setGendre(?Gendre $gendre): static
     {
-        $this->gender = $gender;
+        $this->gender = $gendre;
 
         return $this;
     }
@@ -318,6 +303,42 @@ class Candidate
                 $application->setCandidate(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateOfBirth(): ?\DateTimeImmutable
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth(?\DateTimeImmutable $dateOfBirth): static
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    public function getGender(): ?Gendre
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?Gendre $gender): static
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?Image
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?Image $profilePicture): static
+    {
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }

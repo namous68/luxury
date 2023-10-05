@@ -35,6 +35,14 @@ class Candidature
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DepositeDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'candidatures')]
+    private ?offer $offer = null;
+
+   
+
+    #[ORM\ManyToOne(inversedBy: 'no')]
+    private ?User $User = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +128,30 @@ class Candidature
     public function setDepositeDate(\DateTimeInterface $DepositeDate): static
     {
         $this->DepositeDate = $DepositeDate;
+
+        return $this;
+    }
+
+    public function getOffer(): ?offer
+    {
+        return $this->offer;
+    }
+
+    public function setOffer(?offer $offer): static
+    {
+        $this->offer = $offer;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): static
+    {
+        $this->User = $User;
 
         return $this;
     }
