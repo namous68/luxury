@@ -130,7 +130,7 @@
                                 <li><span> Location </span>{{Offer.jobLocation}}</li>
                                 <li><span> Closing date </span>{{Offer.closingAt|date('d/m/Y')}}</li>
                             </ul>
-                             <a class="btn btn-block gradient primary mt-30 waves-effect waves-light" href=""{{ path ('job_index', {id:Offer.id})}}"">Apply for this job</a>
+                             <a class="btn btn-block gradient primary mt-30 waves-effect waves-light" href="{{ path('app_candidatures_new', {'id':Offer.id})}}">Apply for this job</a>
 
 
                              {% if is_granted('ROLE_ADMIN') %}

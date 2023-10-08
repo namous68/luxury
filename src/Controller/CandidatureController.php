@@ -10,6 +10,7 @@ use App\controller\JobController;
 use App\controller\ApplicationRepository;
 use App\Entity\Candidature;
 use App\Entity\Offer;
+use App\Repository\ApplicationRepository as RepositoryApplicationRepository;
 use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
 
@@ -25,7 +26,7 @@ class CandidatureController extends AbstractController
         ]);
     }
 
-    public function new(Request $request, Offer $Offer , ApplicationRepository $applicationRepository, OfferRepository $OfferRepository, UserRepository $UserRepository): Response
+    public function new(Request $request, Offer $Offer , ApplicationRepository $ApplicationRepository, OfferRepository $OfferRepository, UserRepository $UserRepository): Response
     {
 
     if($this->getUser()) {
@@ -42,7 +43,7 @@ class CandidatureController extends AbstractController
         $entityManager->persist($candidature);
         $entityManager->flush();
 
-        $candidatureExists = $applicationRepository->findOneBy(array('offer' => $Offer->getId()));
+        $candidatureExists = $ApplicationRepository->findOneBy(array('offer' => $Offer->getId()));
 
         return $this->redirectToRoute('Offer_show', [
             'id' => $Offer->getId(),

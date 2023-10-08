@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ApplicationRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
@@ -23,6 +24,11 @@ class Application
     #[ORM\ManyToOne(inversedBy: 'applications')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
+
+    public function __construct()
+    {
+        $this->appliedAt = new DateTimeImmutable();
+    }
     
     public function getId(): ?int
     {
@@ -40,30 +46,7 @@ class Application
 
         return $this;
     }
-
-    public function getOffer(): ?string
-    {
-        return $this->offer;
-    }
-
-    public function setOffer(string $offer): static
-    {
-        $this->offer = $offer;
-
-        return $this;
-    }
-
-    public function getUser(): ?string
-    {
-        return $this->user;
-    }
-
-    public function setUser(string $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
+    
 
     public function getCandidate(): ?Candidate
     {
@@ -76,4 +59,18 @@ class Application
 
         return $this;
     }
+
+    public function getOffer(): ?Offer
+    {
+        return $this->offer;
+    }
+
+    public function setOffer(?Offer $offer): static
+    {
+        $this->offer = $offer;
+
+        return $this;
+    }
+
+    
 }

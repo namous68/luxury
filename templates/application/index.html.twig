@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidate!{% endblock %}
-
+{% block title %}Hello ApplicationController!{% endblock %}
 {% block meta %}
- <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +14,8 @@
 {% endblock %}
 
 {% block linksAndStylesheets %}
-<link rel="shortcut icon" href="assets/img/ico/fav.png">
-<link href="/assets/css/main.css" rel="stylesheet">
+ <link rel="shortcut icon" href="assets/img/ico/fav.png">
+ <link href="/assets/css/main.css" rel="stylesheet">
 
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.materialize.a1042cadda540464eafd9350bb40433a_1547807689.css" rel="stylesheet">
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.bootstrap.457005dcd8ab887d5f47791eaa1e3a26_1547807834.css" rel="stylesheet">
@@ -25,6 +24,7 @@
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.revolution-settings.77c694ef3fb511bf87c5b705b555fc2a_1547807825.css" rel="stylesheet">
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.revolution-layers.4f1e49eeb6f7351bbdc1fb6e35adb6ed_1547807826.css" rel="stylesheet">
     <link href="http://kys.idmkr.io/cache/assets/frontend.kys.revolution-navigation.2f4deeb1fe1d3f7c9ab31d29a1133835_1547807825.css" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -76,29 +76,16 @@
 
 {% endblock %}
 
-
-
 {% block body %}
-    <h1 style="padding-top:10rem; text-align:center; background-color:#2F3138; margin-top:0; color:white; padding-bottom:2%">Candidate</h1>
-<section class="single-project-section section-padding light-gray-bg">
-<div class="container">
-<div class="col-xs-12 col-md-8">
-
-name: {{ applications[0].candidate.firstname }}<br>
-Job: {{ applications[0].offer.jobTitle }}<br>
-<h3>your application has been received</h3>
 
 
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Ahmed/Documents/Symfony/nouveau_tp/luxury/src/Controller/ApplicationController.php'|file_link(0) }}">src/Controller/ApplicationController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/Ahmed/Documents/Symfony/nouveau_tp/luxury/templates/application/index.html.twig'|file_link(0) }}">templates/application/index.html.twig</a></code></li>
+    </ul>
 </div>
-</div>
-</section>
-{% endblock %}
-
-{% block javascriptsBas %}
-	<script type="text/javascript">
-
-		onAppReady(function () {
-$('.preload').remove();
-});
-	</script>
 {% endblock %}
