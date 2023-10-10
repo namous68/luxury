@@ -36,7 +36,7 @@ class Candidature
     private ?\DateTimeInterface $DepositeDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'candidatures')]
-    private ?offer $offer = null;
+    private ?Offer $offer = null;
 
    
 
