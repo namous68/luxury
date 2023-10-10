@@ -19,7 +19,7 @@ class Category
     private ?string $category = null;
 
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: candidate::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Candidate::class)]
     private Collection $candidate;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Offer::class, orphanRemoval: true)]
